@@ -36,4 +36,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Authorize org
-        run: sfdx force:auth:sfdxurl:store -f {{secrets.SFDX_AUTH_URL}} -s -a github_actions_org
+        run: sfdx force:auth:sfdxurl:store -f ${{ secrets.SFDX_AUTH_URL }} -s -a github_actions_org
