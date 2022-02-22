@@ -22,6 +22,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
+      # Checkout the source code
+      - name: 'Checkout source code'
+        uses: actions/checkout@v2
+        
       # Install Salesforce CLI
       - name: Install Salesforce CLI
         run: |
@@ -29,10 +34,6 @@ jobs:
             mkdir sfdx-cli
             tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
             ./sfdx-cli/install
-
-      # Checkout the source code
-      - name: 'Checkout source code'
-        uses: actions/checkout@v2
 
       # Store secret for dev hub
       - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
@@ -48,3 +49,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Authorize org
         run: sfdx force:auth:sfdxurl:store -f ./SFDX_AUTH_URL.txt -s -a github_actions_org
+
+      # Run Apex tests in scratch org
+      - name: 'Run Apex tests'
+        run: sfdx force:apex:test:run -c -r human -d ./tests/apex -w 20
