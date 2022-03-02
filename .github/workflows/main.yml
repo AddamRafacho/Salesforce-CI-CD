@@ -38,16 +38,15 @@ jobs:
       # Store secret for dev hub
       - name: 'Populate auth file with SFDX_AUTH_URL secret'
         shell: bash
-        run: |
-            sudo echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
-            sudo secretFileSize=$(wc -c "./SFDX_AUTH_URL.txt" | awk '{print $1}')
-            if [ $secretFileSize == 1 ]; then
-                echo "Missing SFDX_AUTH_URL secret. Is this workflow running on a fork?";
-                exit 1;
-            fi
+        run: sudo echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
+  
+      # Store secret for dev hub 2
+      - name: 'Populate auth file with SFDX_AUTH_URL secret'
+        shell: bash
+        run: sudo echo 'arquivo de teste' > ./teste.txt
 
       # Runs a set of commands using the runners shell
-      - name: Authorize org
+      - name: 'Authorize org'
         run: sudo sfdx force:auth:sfdxurl:store -f ./SFDX_AUTH_URL.txt -s -a github_actions_org
 
       # Run Apex tests in scratch org
