@@ -36,13 +36,13 @@ jobs:
             sudo ./sfdx-cli/install
 
       # Store secret for dev hub
-      - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
+      - name: 'Populate auth file with SFDX_AUTH_URL secret'
         shell: bash
         run: |
             sudo echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
-            sudo secretFileSize=$(wc -c "./DEVHUB_SFDX_URL.txt" | awk '{print $1}')
+            sudo secretFileSize=$(wc -c "./SFDX_AUTH_URL.txt" | awk '{print $1}')
             if [ $secretFileSize == 1 ]; then
-                echo "Missing DEVHUB_SFDX_URL secret. Is this workflow running on a fork?";
+                echo "Missing SFDX_AUTH_URL secret. Is this workflow running on a fork?";
                 exit 1;
             fi
 
