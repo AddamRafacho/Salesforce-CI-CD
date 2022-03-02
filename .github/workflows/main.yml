@@ -31,16 +31,16 @@ jobs:
       - name: Install Salesforce CLI
         run: |
             sudo wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-            mkdir sfdx-cli
-            tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
-            ./sfdx-cli/install
+            sudo mkdir sfdx-cli
+            sudo tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+            sudo ./sfdx-cli/install
 
       # Store secret for dev hub
       - name: 'Populate auth file with DEVHUB_SFDX_URL secret'
         shell: bash
         run: |
             sudo echo ${{ secrets.SFDX_AUTH_URL }} > ./SFDX_AUTH_URL.txt
-            secretFileSize=$(wc -c "./DEVHUB_SFDX_URL.txt" | awk '{print $1}')
+            sudo secretFileSize=$(wc -c "./DEVHUB_SFDX_URL.txt" | awk '{print $1}')
             if [ $secretFileSize == 1 ]; then
                 echo "Missing DEVHUB_SFDX_URL secret. Is this workflow running on a fork?";
                 exit 1;
