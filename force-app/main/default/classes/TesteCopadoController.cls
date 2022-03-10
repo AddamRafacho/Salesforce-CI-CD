@@ -1,5 +1,5 @@
 public with sharing class TesteCopadoController {
     public void testar() {
-        System.debug('teste 2');
+        System.debug('teste com Magno e galera');
     }
 }
