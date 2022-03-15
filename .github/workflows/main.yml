@@ -46,5 +46,18 @@ jobs:
       
       # push to org
       - name: "push to org"
-        run: sudo sfdx force:source:deploy -u github_actions_org -x ./manifest/package.xml -l RunAllTestsInOrg
+        run: sudo sfdx force:source:deploy -u github_actions_org -x ./manifest/package.xml
 
+      - name: slack-send
+        # You may pin to the exact commit or the version.
+        # uses: slackapi/slack-github-action@16b6c78ee73689a627b65332b34e5d409c7299da
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # Slack channel ID where message will be posted. Needed if using bot token
+          channel-id: C036RQHPXRD
+          # Message to post into Slack. Needed if using bot token
+          slack-message: "Sucesso no deploy"
+          # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
+          # payload: # optional
+          # path to JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead. If payload is provided, it will take preference over this field
+          # payload-file-path: # optional
